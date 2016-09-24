@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.main {
+	margin: 0 auto;
+}
+
+.header {
+  background-color: #6f2b90;
+  height: 130px;
+  padding: 0px;
+  color: white;
+	text-align: center;
+}
+
+.add-new-product {
+	margin: 20px 0;
+}
+
+.product-add-form {
+	margin: 15px 0;
+}
+
+.footer {
+	text-align: center;
+}
+
+.brand-logo {
+	width: 180px;
+}
+
+.react-logo {
+  animation: react-logo-spin infinite 20s linear;
+  height: 40px;
+}
+
+@keyframes react-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
