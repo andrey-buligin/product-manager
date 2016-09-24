@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Grid, Row, Col, Collapse, Button} from 'react-bootstrap';
+import Products from '../stores/productsStore';
 import NewProductForm from './productAddForm';
 
 class ProductsManager extends Component {
@@ -7,9 +8,23 @@ class ProductsManager extends Component {
 	constructor() {
 		super();
 		this.state = {
-			products: [],
 			open: false
 		};
+		this.onProductsUpdate = this.onProductsUpdate.bind(this);
+	}
+
+	componentWillMount() {
+		this.setState({products: Products.getAll()});
+    Products.addListener(this.onProductsUpdate);
+  }
+
+	componentWillUnmount() {
+		Products.removeListener(this.onProductsUpdate);
+	}
+
+	onProductsUpdate() {
+		debugger;
+		this.setState({products: Products.getAll()});
 	}
 
 	render() {
@@ -34,6 +49,9 @@ class ProductsManager extends Component {
 					<Row className="show-grid">
 						<Col sm={6} md={3}>
 							<h5>Existing products</h5>
+							{this.state.products.map((product, index) => {
+								return <div key={index}>{product.title}: £{product.price}</div>
+							})}
 						</Col>
 					</Row>
 				</Grid>
