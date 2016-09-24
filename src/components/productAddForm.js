@@ -81,6 +81,7 @@ class ProductAddForm extends Component {
 					id="title"
 					type="text"
 					label="Title"
+					value={this.state.title}
 					placeholder="New shoes"
 					help="Please enter valid title. Title should be at least 3 chars long"
 					validate={this.validateTitle.bind(this)}
@@ -90,6 +91,7 @@ class ProductAddForm extends Component {
 					id="price"
 					type="text"
 					label="Price"
+					value={this.state.price}
 					placeholder="0.0"
 					help="Please enter valid price in £."
 					validate={this.validatePrice.bind(this)}

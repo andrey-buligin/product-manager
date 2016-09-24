@@ -15,15 +15,14 @@ class ProductsManager extends Component {
 
 	componentWillMount() {
 		this.setState({products: Products.getAll()});
-    Products.addListener(this.onProductsUpdate);
+    this.productsUpdateListener = Products.addListener(this.onProductsUpdate);
   }
 
 	componentWillUnmount() {
-		Products.removeListener(this.onProductsUpdate);
+		Products.removeListener(this.productsUpdateListener);
 	}
 
 	onProductsUpdate() {
-		debugger;
 		this.setState({products: Products.getAll()});
 	}
 

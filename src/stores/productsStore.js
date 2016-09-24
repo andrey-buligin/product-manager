@@ -13,12 +13,12 @@ class ProductsStore extends FluxStore {
   }
 
 	removeListener(callback) {
-		this.__emitter.removeListener(this.__changeEvent, callback);
+		this.__emitter._subscriber.removeSubscription(callback)
 	}
 
   onAction(action) {
 		const {type, product, productId} = action;
-		debugger;
+		//debugger;
     switch (type) {
       case 'products:add':
 				createProduct(product);
