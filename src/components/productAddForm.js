@@ -20,11 +20,11 @@ class ProductAddForm extends Component {
 	}
 
 	validateTitle() {
-		let title = this.state.title;
+		let title = this.state.title.trim();
 
-		if (!title.length) {
+		if (!this.state.title.length) {
 			return false;
-		} else if (!title || title.trim().length < 3) {
+		} else if (!title || title.length < 3) {
 			return 'error';
 		} else {
 			return 'success';
@@ -32,7 +32,7 @@ class ProductAddForm extends Component {
 	}
 
 	validatePrice() {
-		let price = parseInt(this.state.price, 10);
+		let price = parseFloat(this.state.price, 10);
 
 		if (!this.state.price.length) {
 			return false;
@@ -45,7 +45,7 @@ class ProductAddForm extends Component {
 
 	handlePriceChange(e) {
 		this.setState({
-			price: e.target.value.trim(),
+			price: e.target.value,
 			priceIsValid: this.validatePrice() === 'success'
 		});
 	}
@@ -59,8 +59,8 @@ class ProductAddForm extends Component {
 
 	onProductCreate () {
 		Actions.addProduct({
-			price: this.state.price,
-			title: this.state.title
+			price: this.state.price.replace(/^0+/g, ''),
+			title: this.state.title.trim()
 		});
 		this.setState(this.getInitState());
 	}
@@ -82,7 +82,7 @@ class ProductAddForm extends Component {
 				/>
 				<FieldGroup
 					id="price"
-					type="text"
+					type="number"
 					label="Price"
 					value={this.state.price}
 					placeholder="0.0"

@@ -47,8 +47,8 @@ class ProductsManager extends Component {
 						</Col>
 					</Row>
 					<Row className="show-grid">
-						<Col sm={6} md={3}>
-							<h5>Existing products</h5>
+						<Col md={6} mdOffset={3} sm={8} smOffset={2} xs={10} xsOffset={1}>
+							<h4>Existing products</h4>
 							<ProductsList products={this.state.products} {...this.props}/>
 						</Col>
 					</Row>
