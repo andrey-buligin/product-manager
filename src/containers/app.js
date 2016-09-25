@@ -15,14 +15,12 @@ const ROUTE_TITLES = {
 class App extends Component {
 	constructor (props) {
 		super();
-		console.log(props);
 		this.state = {
 			title: ROUTE_TITLES[props.routes[1].component.name]
 		};
 	}
 
 	componentWillReceiveProps(newProps) {
-		console.log('new props', newProps.routes[1].component.name);
 		this.setState({title: ROUTE_TITLES[newProps.routes[1].component.name]});
 	}
 

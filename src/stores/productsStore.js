@@ -20,7 +20,7 @@ class ProductsStore extends FluxStore {
 	}
 
 	addSyncListener(callback) {
-		this.__emitter.addListener('sync', callback)
+		return this.__emitter.addListener('sync', callback)
 	}
 
 	__emitSync() {
