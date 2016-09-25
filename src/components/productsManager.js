@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Grid, Row, Col, Collapse, Button} from 'react-bootstrap';
 import Products from '../stores/productsStore';
 import NewProductForm from './productAddForm';
+import ProductsList from './productsList';
 
 class ProductsManager extends Component {
 
@@ -48,9 +49,7 @@ class ProductsManager extends Component {
 					<Row className="show-grid">
 						<Col sm={6} md={3}>
 							<h5>Existing products</h5>
-							{this.state.products.map((product, index) => {
-								return <div key={index}>{product.title}: £{product.price}</div>
-							})}
+							<ProductsList products={this.state.products} {...this.props}/>
 						</Col>
 					</Row>
 				</Grid>

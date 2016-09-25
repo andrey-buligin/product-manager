@@ -7,10 +7,10 @@ class ProductAddForm extends Component {
 
 	constructor() {
 		super();
-		this.state = this.getInitialState();
+		this.state = this.getInitState();
 	}
 
-	getInitialState() {
+	getInitState() {
 		return {
 			priceIsValid: false,
 			titleIsValid: false,
@@ -45,7 +45,7 @@ class ProductAddForm extends Component {
 
 	handlePriceChange(e) {
 		this.setState({
-			price: e.target.value,
+			price: e.target.value.trim(),
 			priceIsValid: this.validatePrice() === 'success'
 		});
 	}
@@ -62,7 +62,7 @@ class ProductAddForm extends Component {
 			price: this.state.price,
 			title: this.state.title
 		});
-		this.setState(this.getInitialState());
+		this.setState(this.getInitState());
 	}
 
 	render() {
