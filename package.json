@@ -1,7 +1,8 @@
 {
-  "name": "THEOUTNET.COM test",
+  "name": "THEOUTNET-test",
   "version": "0.1.0",
   "private": true,
+	"proxy": "http://localhost:8080/",
   "devDependencies": {
     "eslint": "^3.6.0",
     "react-scripts": "0.4.3"
@@ -12,7 +13,8 @@
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.2",
     "react-router": "^2.8.1",
-    "react-router-bootstrap": "^0.23.1"
+    "react-router-bootstrap": "^0.23.1",
+    "whatwg-fetch": "^1.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

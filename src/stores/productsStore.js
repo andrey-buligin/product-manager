@@ -1,15 +1,18 @@
 import FluxStore from 'flux/lib/FluxStore';
 import ProductDispatcher, {Actions, ActionNames} from '../actions/productActions';
+import ProductsAPI from '../resources/products';
+
+const _products = [];
 
 class ProductsStore extends FluxStore {
 	constructor() {
 		super(...arguments);
-		this.products = [{title: 'Random', price: 10}];
 		this.__onDispatch = this.onAction.bind(this);
+		Actions.fetchProducts();
 	}
 
   getAll() {
-    return this.products;
+    return _products;
   }
 
 	removeListener(callback) {
@@ -17,48 +20,74 @@ class ProductsStore extends FluxStore {
 	}
 
   onAction(action) {
-		const {type, product, productId} = action;
-		//debugger;
+		const {type, product, products, removeId} = action;
+
     switch (type) {
-      case ActionNames.ADD_PRODUCT:
-				createProduct(product);
+      case ActionNames.GET_PRODUCTS:
+				ProductsAPI.getProducts().then((fetchedProducts) => {
+					Actions.resetProducts(fetchedProducts);
+				});
 				break;
 
-      case ActionNames.PRODUCT_ADDED:
-        addProduct(this.products, product);
+      case ActionNames.RESET_PRODUCTS:
+				resetProducts(products);
 				this.__emitChange();
 				break;
 
+      case ActionNames.ADD_PRODUCT:
+				ProductsAPI.createProduct(product).then((createdProduct) => {
+					Actions.productCreated(createdProduct);
+				});
+				break;
+
+      case ActionNames.PRODUCT_ADDED:
+				if (product && product.id) {
+        	addProduct(product);
+					this.__emitChange();
+				}
+				break;
+
       case ActionNames.REMOVE_PRODUCT:
-				removeProduct(productId);
+				ProductsAPI.deleteProduct(product).then(() => {
+					Actions.productRemoved(product.id);
+				});
+				break;
+
+      case ActionNames.PRODUCT_REMOVED:
+				removeProduct(removeId);
 				this.__emitChange();
 				break;
 
       default:
-        return this.products;
+        return _products;
     }
   }
 }
 
-function createProduct(product) {
-	return new Promise((resolve, reject) => {
-		setTimeout(function () {
-			let createdProduct = product;
-			Actions.productCreated(createdProduct);
-		}, 1500);
+function resetProducts(products) {
+	_products.splice(0, _products.length, ...products);
+	return _products;
+}
+
+function addProduct(product) {
+	_products.push(product);
+	return _products;
+}
+
+function removeProduct(productId) {
+	let deleteIndex = null;
+
+	_products.forEach((product, index) => {
+		if (productId === product.id) {
+			deleteIndex = index;
+		}
 	});
-}
 
-function addProduct(products, product) {
-	products.push(product);
-	return products;
-}
-
-function removeProduct(products, productIndex) {
-	if (products[productIndex]) {
-		products.slice(productIndex, 1);
+	if (deleteIndex !== null) {
+		_products.splice(deleteIndex, 1);
 	}
-	return products;
+
+	return _products;
 };
 
 

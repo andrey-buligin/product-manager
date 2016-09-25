@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Table, Button} from 'react-bootstrap';
+import {Actions} from '../actions/productActions';
 
 class ProductsList extends Component {
 	render() {
@@ -22,7 +23,7 @@ class ProductsList extends Component {
 											<td>{product.price}</td>
 											<td>
 												<Button bsStyle="danger" bsSize="xs"
-												onClick={() => this.setState({removed: product.title})}>
+												onClick={() => Actions.removeProduct(product)}>
 												Remove
 											</Button></td>
 										</tr>

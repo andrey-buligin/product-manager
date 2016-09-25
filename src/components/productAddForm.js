@@ -32,7 +32,7 @@ class ProductAddForm extends Component {
 	}
 
 	validatePrice() {
-		let price = parseFloat(this.state.price, 10);
+		let price = parseInt(this.state.price, 10);
 
 		if (!this.state.price.length) {
 			return false;
@@ -59,7 +59,7 @@ class ProductAddForm extends Component {
 
 	onProductCreate () {
 		Actions.addProduct({
-			price: this.state.price.replace(/^0+/g, ''),
+			price: parseInt(this.state.price.replace(/^0+/g, ''), 10),
 			title: this.state.title.trim()
 		});
 		this.setState(this.getInitState());
@@ -86,7 +86,7 @@ class ProductAddForm extends Component {
 					label="Price"
 					value={this.state.price}
 					placeholder="0.0"
-					help="Please enter valid price in £."
+					help="Please enter valid price in £ without cents"
 					validate={this.validatePrice.bind(this)}
 					onChange={this.handlePriceChange.bind(this)}
 				/>
