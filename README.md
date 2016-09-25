@@ -3,6 +3,8 @@
 
 Please install requires node packages using `npm install`
 
+### Ensure you have correct privileges on the folder as dev-server requires writing permissions.
+
 If you have troubles with linter please use following command
 
 ```sh
@@ -11,7 +13,7 @@ npm install -g eslint babel-eslint eslint-plugin-react eslint-plugin-import esli
 
 After that use `npm start` to start the server
 
-To run tests use `npm test` command
+To run tests use `npm test` command. Then press "a" to rerun all tests.
 
 For build please use `npm build` command
 
