@@ -7,20 +7,22 @@ class ProductAddForm extends Component {
 
 	constructor() {
 		super();
-		this.state = {
+		this.state = this.getInitialState();
+	}
+
+	getInitialState() {
+		return {
 			priceIsValid: false,
 			titleIsValid: false,
-			validatePrice: false,
-			validateTitle: false,
 			price: 0,
 			title: ''
 		};
 	}
 
 	validateTitle() {
-		const title = this.state.title;
+		let title = this.state.title;
 
-		if (!this.state.validateTitle) {
+		if (!title.length) {
 			return false;
 		} else if (!title || title.trim().length < 3) {
 			return 'error';
@@ -30,9 +32,9 @@ class ProductAddForm extends Component {
 	}
 
 	validatePrice() {
-		const price = this.state.price;
+		let price = parseInt(this.state.price, 10);
 
-		if (!this.state.validatePrice) {
+		if (!this.state.price.length) {
 			return false;
 		} else if (isNaN(price) || price <= 0) {
 			return 'error';
@@ -43,8 +45,7 @@ class ProductAddForm extends Component {
 
 	handlePriceChange(e) {
 		this.setState({
-			price: parseInt(e.target.value, 10),
-			validatePrice: e.target.value.length,
+			price: e.target.value,
 			priceIsValid: this.validatePrice() === 'success'
 		});
 	}
@@ -52,24 +53,16 @@ class ProductAddForm extends Component {
 	handleTitleChange(e) {
 		this.setState({
 			title: e.target.value,
-			validateTitle: e.target.value.length,
 			titleIsValid: this.validateTitle() === 'success'
 		});
 	}
 
 	onProductCreate () {
-		let newProduct = {
+		Actions.addProduct({
 			price: this.state.price,
 			title: this.state.title
-		};
-		Actions.addProduct(newProduct);
-
-		this.setState({
-			price: '',
-			title: '',
-			validatePrice: false,
-			validateTitle: false
 		});
+		this.setState(this.getInitialState());
 	}
 
 	render() {

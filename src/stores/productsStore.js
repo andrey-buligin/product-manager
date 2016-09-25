@@ -1,5 +1,5 @@
 import FluxStore from 'flux/lib/FluxStore';
-import ProductDispatcher, {Actions} from '../actions/productActions';
+import ProductDispatcher, {Actions, ActionNames} from '../actions/productActions';
 
 class ProductsStore extends FluxStore {
 	constructor() {
@@ -20,16 +20,16 @@ class ProductsStore extends FluxStore {
 		const {type, product, productId} = action;
 		//debugger;
     switch (type) {
-      case 'products:add':
+      case ActionNames.ADD_PRODUCT:
 				createProduct(product);
 				break;
 
-      case 'products:added':
+      case ActionNames.PRODUCT_ADDED:
         addProduct(this.products, product);
 				this.__emitChange();
 				break;
 
-      case 'products:remove':
+      case ActionNames.REMOVE_PRODUCT:
 				removeProduct(productId);
 				this.__emitChange();
 				break;
