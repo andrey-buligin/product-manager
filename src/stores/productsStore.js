@@ -19,11 +19,20 @@ class ProductsStore extends FluxStore {
 		this.__emitter._subscriber.removeSubscription(callback)
 	}
 
+	addSyncListener(callback) {
+		this.__emitter.addListener('sync', callback)
+	}
+
+	__emitSync() {
+		this.__emitter.emit('sync');
+	}
+
   onAction(action) {
 		const {type, product, products, removeId} = action;
 
     switch (type) {
       case ActionNames.GET_PRODUCTS:
+				this.__emitSync();
 				ProductsAPI.getProducts().then((fetchedProducts) => {
 					Actions.resetProducts(fetchedProducts);
 				});
@@ -35,6 +44,7 @@ class ProductsStore extends FluxStore {
 				break;
 
       case ActionNames.ADD_PRODUCT:
+				this.__emitSync();
 				ProductsAPI.createProduct(product).then((createdProduct) => {
 					Actions.productCreated(createdProduct);
 				});
@@ -48,6 +58,7 @@ class ProductsStore extends FluxStore {
 				break;
 
       case ActionNames.REMOVE_PRODUCT:
+				this.__emitSync();
 				ProductsAPI.deleteProduct(product).then(() => {
 					Actions.productRemoved(product.id);
 				});
