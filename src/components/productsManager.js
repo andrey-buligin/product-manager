@@ -51,9 +51,7 @@ class ProductsManager extends Component {
 								Add new product
 							</Button>
 							<Collapse in={this.state.open}>
-								<div>
-									<NewProductForm/>
-								</div>
+								<NewProductForm/>
 							</Collapse>
 						</Col>
 					</Row>

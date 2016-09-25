@@ -2,10 +2,13 @@
   "name": "THEOUTNET-test",
   "version": "0.1.0",
   "private": true,
-	"proxy": "http://localhost:8080/",
+  "proxy": "http://localhost:8080/",
   "devDependencies": {
+    "enzyme": "^2.4.1",
     "eslint": "^3.6.0",
-    "react-scripts": "0.4.3"
+    "react-addons-test-utils": "^15.3.2",
+    "react-scripts": "0.4.3",
+    "sinon": "^1.17.6"
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
